@@ -1,0 +1,169 @@
+fileFormatVersion: 2
+guid: 51833e0bae8b10444b738c0e1534d527
+timeCreated: 1464827920
+licenseType: Store
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: crouch_cube
+    100002: crouch_cube.001
+    100004: crouch_cube.002
+    100006: crouch_cube.003
+    100008: Cylinder
+    100010: floor
+    100012: ladder
+    100014: ladder.001
+    100016: ladder.002
+    100018: ladder.003
+    100020: ladder.004
+    100022: ladder.005
+    100024: ladder.006
+    100026: ladder.007
+    100028: ladder.008
+    100030: //RootNode
+    100032: Tower
+    400000: crouch_cube
+    400002: crouch_cube.001
+    400004: crouch_cube.002
+    400006: crouch_cube.003
+    400008: Cylinder
+    400010: floor
+    400012: ladder
+    400014: ladder.001
+    400016: ladder.002
+    400018: ladder.003
+    400020: ladder.004
+    400022: ladder.005
+    400024: ladder.006
+    400026: ladder.007
+    400028: ladder.008
+    400030: //RootNode
+    400032: Tower
+    2300000: crouch_cube
+    2300002: crouch_cube.001
+    2300004: crouch_cube.002
+    2300006: crouch_cube.003
+    2300008: Cylinder
+    2300010: floor
+    2300012: ladder
+    2300014: ladder.001
+    2300016: ladder.002
+    2300018: ladder.003
+    2300020: ladder.004
+    2300022: ladder.005
+    2300024: ladder.006
+    2300026: ladder.007
+    2300028: ladder.008
+    2300030: Tower
+    3300000: crouch_cube
+    3300002: crouch_cube.001
+    3300004: crouch_cube.002
+    3300006: crouch_cube.003
+    3300008: Cylinder
+    3300010: floor
+    3300012: ladder
+    3300014: ladder.001
+    3300016: ladder.002
+    3300018: ladder.003
+    3300020: ladder.004
+    3300022: ladder.005
+    3300024: ladder.006
+    3300026: ladder.007
+    3300028: ladder.008
+    3300030: Tower
+    4300000: crouch_cube
+    4300002: crouch_cube.002
+    4300004: crouch_cube.001
+    4300006: crouch_cube.003
+    4300008: ladder
+    4300010: Tower
+    4300012: ladder.007
+    4300014: ladder.008
+    4300016: ladder.005
+    4300018: ladder.004
+    4300020: ladder.003
+    4300022: ladder.001
+    4300024: ladder.002
+    4300026: ladder.006
+    4300028: Cylinder
+    4300030: floor
+    6400000: crouch_cube
+    6400002: crouch_cube.001
+    6400004: crouch_cube.002
+    6400006: crouch_cube.003
+    6400008: Cylinder
+    6400010: floor
+    6400012: ladder
+    6400014: ladder.001
+    6400016: ladder.002
+    6400018: ladder.003
+    6400020: ladder.004
+    6400022: ladder.005
+    6400024: ladder.006
+    6400026: ladder.007
+    6400028: ladder.008
+    6400030: Tower
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleRotations: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 1
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 0
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

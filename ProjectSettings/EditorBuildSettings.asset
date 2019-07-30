@@ -4,5 +4,11 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Examples/Doomtrinity/_scenes/Menu.unity
+    guid: 1075ece6357462c47997bc27bae8bd6c
+  - enabled: 1
+    path: Assets/Examples/Doomtrinity/_scenes/FiringRange.unity
+    guid: 5f72d53a1b812eb4d878600f8285062d
   m_configObjects: {}

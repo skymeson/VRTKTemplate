@@ -1,0 +1,155 @@
+fileFormatVersion: 2
+guid: 7ae7c8dce57db3e4e97b210f06a96af9
+timeCreated: 1457781343
+licenseType: Store
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: muzzleflash_side_0
+    21300002: muzzleflash_side_1
+    21300004: muzzleflash_side_2
+    21300006: muzzleflash_side_3
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 7
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: -1
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: muzzleflash_side_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 300
+        width: 600
+        height: 300
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -212, y: 21}
+        - {x: -212, y: -4}
+        - {x: -197, y: -23}
+        - {x: -189, y: -35}
+        - {x: 67, y: -35}
+        - {x: 226, y: -8}
+        - {x: 226, y: 19}
+        - {x: 208, y: 28}
+        - {x: -71, y: 66}
+        - {x: -168, y: 66}
+        - {x: -198, y: 46}
+      - - {x: 224, y: 13}
+        - {x: 223, y: 11}
+        - {x: 223, y: 8}
+        - {x: 227, y: 5}
+        - {x: 230, y: 7}
+        - {x: 229, y: 11}
+        - {x: 227, y: 13}
+    - name: muzzleflash_side_1
+      rect:
+        serializedVersion: 2
+        x: 600
+        y: 300
+        width: 600
+        height: 300
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 188, y: 18}
+        - {x: 187, y: 23}
+        - {x: 4, y: 52}
+        - {x: -116, y: 82}
+        - {x: -164, y: 82}
+        - {x: -197, y: 45}
+        - {x: -197, y: -1}
+        - {x: -181, y: -43}
+        - {x: 57, y: -43}
+        - {x: 179, y: -12}
+        - {x: 188, y: -5}
+    - name: muzzleflash_side_2
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 600
+        height: 300
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -194, y: 76}
+        - {x: -214, y: 25}
+        - {x: -214, y: -2}
+        - {x: -208, y: -18}
+        - {x: -195, y: -35}
+        - {x: -188, y: -70}
+        - {x: -65, y: -70}
+        - {x: 127, y: -24}
+        - {x: 133, y: -13}
+        - {x: 133, y: 47}
+        - {x: -107, y: 76}
+    - name: muzzleflash_side_3
+      rect:
+        serializedVersion: 2
+        x: 600
+        y: 0
+        width: 600
+        height: 300
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -68, y: 59}
+        - {x: -151, y: 59}
+        - {x: -195, y: 26}
+        - {x: -195, y: -22}
+        - {x: -193, y: -27}
+        - {x: -159, y: -58}
+        - {x: -94, y: -58}
+        - {x: 185, y: -14}
+        - {x: 185, y: 23}
+        - {x: 15, y: 36}
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

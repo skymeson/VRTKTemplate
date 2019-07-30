@@ -1,0 +1,201 @@
+doomtrinity's FPS Prototype - version 1.1.0
+
+lorenzo DOT pk3 AT gmail DOT com
+
+//=============================================================================================================================
+// Technical documentation - update 1.1.0
+//=============================================================================================================================
+
+1. Generic information
+2. The new stuff
+	2.1 - Messaging System
+	2.2 - Custom Update System for MonoBehaviour
+	2.3 - Custom Input Manager
+	2.4 - Crouch & Climb for FP controller
+	
+3. Fixes and enhancements
+4. Scene setup
+
+
+//=============================================================================================================================
+// 1. Generic information
+
+This update has been developed in Unity 5.3.3.p2.
+It includes both new stuff, enhancements, and minor fixes.
+Due to these modifications, few things in scene setup are changed.
+
+//=============================================================================================================================
+// 2. The new stuff
+
+//==================================================
+2.1 - Messaging System
+
+DoomtrinityFPSPrototype.Utils - MessagingSystem.cs
+
+A powerful messaging system class that allows to send messages to all listeners when a specific event occurs.
+This is great to keep the code decoupled.
+You basically have to do few things to get this work:
+1 - define your custom message that derives from 'BaseMessage'; this is the message that you need to fire with 
+   'QueueMessage' when a particular event occurs;
+2 - define a method with a signature that matches the 'MessageHandlerDelegate' delegate, in the specific script component
+	that should do something when that event occurs;
+3 - attach the listener, so the messaging system will call the defined method when the event occurs; detach the listener
+    when you no longer need it ( usually attach it in 'Start', and detach it in 'OnDestroy' ).
+Note: if a listner returns true, the event notification will stop for this specific message, 
+so the message won't propagate for the remaining listners to process.
+Take a look to the 'AmmoQtyChangeMessage' message in 'Weapon' script.
+
+//==================================================
+2.2 - Custom Update System for MonoBehaviour
+
+DoomtrinityFPSPrototype.Utils - UpdateMaster.cs
+
+This class manages the update behaviour for all classes that implement the 'IUpdateable' interface ( see 'UpdateableMonoBehaviour' ).
+This has some advantages over classic MonoBehaviour update behaviour:
+- it allows you to handle the update frequency - or disable the update! This is useful
+in many circumstances, for example for stopping an object that performs its move stuff inside 'Update';
+- helps to keep the update behaviour inside managed code, avoiding the native-managed bridge
+that would take place with classic 'Update' callbacks. This allows better performance if you
+have hundreds ( or thousands ) of objects that must run update.
+
+DoomtrinityFPSPrototype.Utils - UpdateableMonoBehaviour.cs
+
+Derive from this class just like you would do with 'MonoBehaviour'.
+This class has some advantages over classic MonoBehaviour, take a look at description of 'UpdateMaster' script.
+IMPORTANT! If your class derives from this, you must use the custom methods below, DO NOT use the "matching" Unity's callback!
+- 'Think' 		--> Unity's 'Update'
+- 'Begin'  		--> Unity's 'Start'
+- 'OnActivate' 	--> Unity's 'OnEnable'
+- 'OnKill' 		--> Unity's 'OnDisable'
+
+//==================================================
+2.3 - Custom Input Manager
+
+DoomtrinityFPSPrototype.InputManagement - InputManager.cs
+
+Static class that holds the key binds - action codes are binded to physical keycodes, and you can change these binds at runtime.
+For new actions:
+- Add at the bottom of the enum 'ActionCode' any new action code (just give it a reasonable name).
+You can see this enum as a list of virtual keys. A physical key will be binded to an action code.
+- Define in 'LoadAllowedKeys' method all physical keys that we can bind to the action codes.
+- Add all possible button binds in 'LoadDefaultBinds' method, pay attention to use allowed physical key only.
+
+DoomtrinityFPSPrototype.InputManagement - Bindable.cs
+
+Attach this script to a button gameobject in the gui. Here you can define the action type that this button
+allow to set, by choosing the action code through its inspector.
+When you click on this button, then the settings gui will wait for a key down to bind the action code.
+Take a look the the 'InputManager' script to see the allowed keycode, in 'LoadAllowedKeys' method.
+If you try to bind a key code which is not in the list, then nothing will happen. Escape is considered
+as a special key even if it is present in the list of allowed keys.
+
+DoomtrinityFPSPrototype.GUI - ConfigButtonsGUI.cs
+
+A simple script to manage the behaviour of the settings gui, which is attached to the gui gameobject, 
+in the hierarchy. This is what it does: 
+- check if a bindable button is being clicked, then wait for key down to bind the action code to that key.
+- find all the 'Bindable' gameobjects, which are buttons, and we put them in a list, 
+that is used to update the text of these buttons - the ToString conversion of the 'KeyCode'.
+Note that you must define the 'OnClick' event for each bindable button, through the inspector, 
+so it will fire the 'ButtonClick' method when we click on the button.
+
+Take a look to the following gameobject in the hierarchy, which exposes the buttons of the game to the settings menu:
+GUI --> SettingsMenu --> InputMenu --> ControlsMenu --> ControlsConfig --> Viewport --> Content
+
+//==================================================
+2.4 - Crouch & Climb for FP controller
+
+UnityStandardAssets.Characters.FirstPerson - FirstPersonController.cs
+
+// =====================
+// Crouch
+
+You can set the crouch height through the inspector, but you should change it only before start playing - not at runtime,
+since some crouch variables are initialized at game start only - these variables are not updated dynamically.
+[SerializeField] [Range(0f, 1.5f)] private float crouchHeight = 0.8f; // Do not change at runtime.
+
+Take a look at the 'CrouchToggle' method, it's well documented. The image crouch.png in __docs folder is a visual representation
+of that code.
+
+// =====================
+// Climb
+
+Requirements for ladder trigger:
+- an empty gameobject with a box collider component, isTrigger selected;
+- 'Ladder' tag, 'IgnoreRaycast' layer;
+- must be perfectly vertical;
+- its "horizontal" width should be the same of player width ( for example: player radius 0.5f --> trigger x and z should be 1.0f );
+- its z axis must point toward the ladder;
+- its height should be the same of the ladder model, but shifted a little bit up, let's say 0.2 units.
+- it should be very close to the ladder model ( the mesh );
+Take a look to test scene to see how triggers have been placed.
+
+//=============================================================================================================================
+// 3. Fixes and enhancements
+
+I probably forget to add something in this list...anyway:
+
+- Clearer save system
+Now the return value of 'Save' method is not used anymore - the savedata variable is passed as parameter to each object to save,
+so the specific object add the data ( trough its specific struct ) to the main save variable.
+Restore is still not as automatic as save, and it's done in LevelInitializer script.
+
+- Simplified audio manager
+Made persistant, so it will be present in each scene.
+
+- Fixed barrel position for machinegun and shotgun
+Now projectiles collide with the wall toward you even if you're very close to it.
+
+- Enhanced player and gui scripts
+Clearer, and more decoupled! Other scripts have been changed though, but these two scripts are much better now.
+
+//=============================================================================================================================
+// 4. Scene setup
+
+If you want to make a new scene, these are the objects that you actually need to add. Almost all the needed objects are 
+available in the 'prefab' folder.
+Note that this is the setup for a "game" scene, while the 'Menu' scene is a bit different.
+
+- FPSController2
+The player. Singleton, but it does not persist across scenes. 
+It includes 'Player' and 'FirstPersonController' script components.
+
+- PlayerInventory
+Singleton, it doesn't persist across scenes.
+Set up in its Inspector all the weapons and ammo stuff. The prefab stores default values, 
+but you may want to set up that stuff for each scene independently.
+
+- GUI
+Singleton, does not persist across scenes. This object holds all the stuff related to user interface: 
+all the in-game menus and the hud.
+
+- LevelInitializer
+Gameobject with 'LevelInitializer' script attached. There's nothing to set in it, it only must be there.
+It performs the game initialization ( enemy spawn ), and the game restore, if loading from a savefile.
+Singleton, does not persist across scenes. 
+
+- GameController
+Manages few things of the game logic ( it's quite limited ATM ), for example when the game must end.
+Singleton, set up scene title, objective, and next scene index through its Inspector. 
+
+- AudioManager
+Manages volumes and sounds library, persists across scenes.
+
+Notes:
+
+- 'PrefabPoolLoader' gameobject is not strictly needed, though you should add it if you're about to spray and pray :)
+
+- Some singleton objects that you previously needed to add in the hierarchy, are now instantiated automatically.
+The script components of these objects inherit from 'SingletonAsComponent' class, which uses lazy initialization 
+( objects are instantiated at the first call to them ). To avoid lazy initialization in critical game actions, which may cost
+performance loss, the 'LazySingletonInitializer' class calls the 'Instance' of each singleton at game start.
+DO NOT place these singletons directly in the scene, if they are persistent across scenes, you will get duplicated objects!
+Take a look in the 'SingletonAsComponent' script for more information.
+
+- If you make a build and try to load a game ( PersistantData.xml ) you saved in Unity play mode, you'll get an exception
+due to different encoding. If you want to play a build, just delete the files in the persistent data path, so the build can 
+write the data files with the right encoding for your platform. 
+This path is printed in the Unity console when you save a game.
+
+//=============================================================================================================================
+

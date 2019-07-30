@@ -1,0 +1,121 @@
+doomtrinity's FPS Prototype - version 1.2.0
+
+lorenzo DOT pk3 AT gmail DOT com
+
+//=============================================================================================================================
+// Technical documentation - update 1.2.0
+//=============================================================================================================================
+
+1. Generic information
+2. The new stuff: Developer Console
+3. Scene setup
+
+
+//=============================================================================================================================
+// 1. Generic information
+
+This update has been developed in Unity 5.3.3.p2.
+The main addition is the developer console, but I also added some enhancements and fixed some bugs.
+There's nothing special to mention about these secondary changes, so the readme information are enough for them.
+Due to the console addition, the scene setup needs to take care of it.
+I remind you that this document is specific to this update, so you still need to read the previous documents,
+to find all the information about this asset.
+
+//=============================================================================================================================
+// 2. The new stuff: Developer Console
+
+// Add the console
+To use the console, a gameobject with the "DevConsole" script component attached must be added in the scene.
+You can use the prefab 'Console' in prefabs/prefab_util for that.
+The options that you see in the Inspector are quite self-explanatory, so I'm not going to linger on them.
+This gameobject must be added to all scenes where you need it. Anyway, if 'dontDestroyOnLoad' is enabled, then you should 
+only need to place it in the first scene, then it won't be deleted when loading new scenes.
+This is a singleton so you should have only 1 'DevConsole' gameobject in the scene.
+
+// Commands and Cvars (Console VARiables)
+The decision that lead me to divide "console input" in 2 categories is inspired by the 'Doom-style' console. 
+I give a brief explanation about the difference between them and how I'm using this stuff.
+Commands are instructions that perform something, but nothing needs to be stored about this operation. 
+A cvar actually does the same thing, but it also stores the value passed as parameter.
+A cvar needs 1 parameter, whilst a command don't strictly need parameters, but it supports 1 to n parameters too.
+A whitespace between the command/cvar and the parameter is needed in order to let the console split the input string
+into command/cvar and parameter.
+The parameter of a cvar must be a single parameter (no multiple words split by spaces) of a specific type (bool, float, etc.).
+A command could support multiple parameters instead, but there are no type checks (parameter will be always a string)
+and the parsing of the parameter must be done in the method that will be called by the command, to get 'sub-parameters'.
+Basically, this means that the code of the 'CommandParam' class considers the parameter as a single string. Then, you must  
+implement your specific command method that parse this parameter string, which could contain sub-parameters.
+You will find more information about this point in the 'Add a cvar/command' section.
+
+For example:
+	noclip - this is a cvar and it needs 0 or 1 as parameter, to disable/enable player clipping.
+			Example:	noclip 1
+	spawn - this is a command, and you must pass the name of the entity you want to spawn as parameter
+			Example:	spawn monster_alien
+	clear - a command to clear the console. It doesn't need any parameter.
+	
+Here, the only input that stores something is 'noclip'. This is a cvar since we may need to know the value of the variable.
+Note that a cvar declared to parse a bool value, accepts 0 for false, and 1 for true (I'm considering to make this kind of cvar
+work as toggle, meaning that you don't need to pass 1 or 0, but the value of the variable will be automatically toggled,
+but this is not actually so important...).
+
+// The 'SpawnCommand' class
+A specific class for the 'spawn' command has been created. This is due to the way this command works. In fact, we need to 
+provide a list of 'entity' parameters that have to be linked to a specific resource to spawn, in 'Resources' folder.
+
+// Use the console
+I think that the console is quite intuitive to use, and there is an help message the first time you open it, which can
+be printed again with the 'help' command.
+
+* Type 'listcmds' and 'listcvars' to show all commands and cvars
+* Add '-h' parameter to show help (if available) for a specific command or cvar, e.g. 'spawn -h'
+* Use 'TAB' key to auto-complete/cycle through all commands/cvars or command parameters
+* Use up/down arrow to browse the input history
+* Use page-up/down to scroll the text area
+
+// Add a cvar/command
+Add a cvar/command is a very simple operation. You must do these steps in the specific class that needs them:
+1. add the command/cvar 
+	DevConsole.AddCommand(new Command("myCommand",CommandMethod,"help text")); // for commands without params
+	DevConsole.AddCommand(new CommandParam("myCommandParam",CommandMethodParam,"help text")); // for commands with parameter
+	DevConsole.AddCvar (new Cvar<type> ("myCvar", CvarMethod, <current_value>, <default_value>, "help text")); // for cvars
+	
+2. implement the method to be executed ( the 2nd parameter of the AddCommand/AddCvar method), e.g. :
+
+	// first command
+	private void CommandMethod(){
+		// do my stuff
+	}
+	
+	// second command
+	private void CommandMethodParam(string args){
+		// parse args and do my stuff. Take a look to the 'bind' command in 'Player.cs' to see an example.
+	}
+	
+	// third cvar, let's suppose it's a <bool> type
+	private void CvarMethod(bool val) {
+		// do my stuff with val
+	}
+	
+That's all!
+Note that you can pass a parameter to the constructor of the cvar/command whith an array of strings, which will be used
+to perform auto-complete on the command/cvar parameter. Take a look to the 'bind' command:
+
+	DevConsole.AddCommand(new CommandParam("bind",BindButtonToCommand,string.Format("'{0}'\n{1}","Usage: bind <key> <command>",
+											"bind a button to a specific console command"),InputManager.GetAllowedKeys()));
+Here, 'InputManager.GetAllowedKeys()' returns a string[] with all keys that could be bound.
+
+Last but not least, you should 'RemoveCommand'(or 'RemoveCvar') when the gameobject that implements it is destroyed,
+to prevent the command to be used in contexts where it should not be available.
+This could be done in the callback method 'OnDestroy' (see 'Player.cs').
+
+//=============================================================================================================================
+// 3. Scene setup
+
+Please refer to previous technical readme files to setup your scene as you only need to add 
+an instance of the 'DevConsole' prefab in addition to the other things.
+Keep in mind that if you 'dontDestroyOnLoad' it, you only need to add it in the very first scene,
+then you will find it in following scenes that are being loaded after the first one.
+
+//=============================================================================================================================
+

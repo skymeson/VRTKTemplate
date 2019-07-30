@@ -1,0 +1,380 @@
+doomtrinity's FPS Prototype - version 1.00
+
+lorenzo DOT pk3 AT gmail DOT com
+
+//=============================================================================================================================
+// Technical documentation
+//=============================================================================================================================
+
+1. Introduction
+	1.1 Version specifications;
+	1.2 The idea behind this project;
+	1.3 Game description.
+
+2. Core classes/prefabs
+	2.1 Level initializer ( LevelInitializer.cs );
+	2.2 Save and load ( SaveLoadData.cs, SaveLoadSettings.cs );
+	2.3 Player inventory ( PlayerInventory.cs );
+	2.4 Player behaviour ( Player.cs, FirstPersonController.cs );
+	2.5 Game Controller ( GameController.cs );
+	2.6 Weapons ( Weapon.cs );
+	2.7 Enemy AI ( Enemy.cs ).
+	2.8 Audio Manager ( AudioManager.cs );
+	2.9 Prefab pooling system ( PrefabPoolingSystem.cs).
+	
+3. Scene setup.
+
+//=============================================================================================================================
+// 1. Introduction
+
+Here I'll try to cover pretty much everything that must be known about technical stuff.
+I'll give a description of the core classes, and the required objects of a scene.
+
+As in readme, I remember that this is not a framework, at least not in this actual state. 
+It could be considered as a nice game example: 
+it collects some nice features together in a well documented single-player FPS game project. 
+My goal is to update this package constantly, and use it as base for future projects.
+
+This package has been mainly developed in Unity 5.3.1.f1, but I had to move to 5.3.3.p2 
+for some bugs in particle system that affect the former version ( more info here: 
+http://forum.unity3d.com/threads/unity-5-3-1f1-particle-system-errors-invalid-aabb-result-isfinite-d.374926/ ).
+
+//==================================================
+1.1 Version specifications
+
+I will adhere to the following rule for future updates.
+Let's consider this format: X.YZ ( 1.31 for example )
+Z - represents bug fixes or improvements in the current version, no new contents. 
+Y - new contents have been added. This may also include bug fixes in previous version.
+X - heavily modified version of the project, that can be considered as a new project.
+
+//==================================================
+1.2 The idea behind this project
+
+I'm a fan of classic FPS games, so I decided to make my old-school FPS.
+Well, I'm actually pretty far from that, but I wanted to start with something very simple to 
+grasp the core concepts in Unity. 
+Then, my goal is to enhance this project to use it as base for my game.
+
+//==================================================
+1.3 Game description
+
+There are 2 demo scenes to play in, 3 if we consider the 'Menu' scene.
+These scenes are 'FiringRange' and 'Vendetta'.
+As an old-school FPS example, there's only one objective in both scenes: shoot to everything that moves.
+The game is structured in the way that you must destroy all enemies to unlock the next level screen.
+Actually, you can save only 1 game, this means that the existing save file, if any, will be overwritten.
+Also, 'FiringRange' is considered as a (special) training level, so you can't save the game there.
+What will be saved is described below in the 'Save and Load' section.
+Please note that these scenes are very simple and I haven't considered the graphics optimization
+too much at the moment.
+
+
+//=============================================================================================================================
+// 2. Core classes
+
+The following classes represent the "core" of the game. I won't mention here the classes
+that don't strictly need to be mentioned. Well, this doesn't actually mean
+that those other classes are not important or unnecessary. Some of those classes 
+could be mentioned at right time in "Scene setup" section.
+Anyway, each class in this project contains more or less comments. I commented pretty much all
+the important things in the code, or the lines which may be unclear at a first look.
+
+//==================================================
+// 2.1 Level initializer 
+
+// "scripts/Util/LevelInitializer.cs"
+
+This class manages the things to do when a scene is loaded.
+A scene could be loaded from scratch ( when we end the current level and go to next level, 
+or 'new game/restart' in menu), or from a save file.
+This instance does not persist across scenes, 
+so it is initialized - Awake and Start - at every scene start.
+
+The very first thing to consider is that we need the player 'FPSController2' in the scene.
+The trick is that the player will be immediately
+deactivated in its Awake method. This is done since we need to restore some stuff before 
+activating it.
+Next, we just need to know if we're loading from a save file. We get this boolean 
+in the persistant 'SaveLoadData' instance. The value of the bool 'isLoadingFromSave' depends
+on the clicked button in the main menu or pause menu ( new game/restart, or load ).
+If we're launching a new game, we just need to spawn enemies in the level, otherwise we need 
+to restore the inventory data ( weapons and ammo ), the enemy data ( transform, health, 
+type, and pathfinder state ), and player data ( transform, health and current weapon ).
+Then, when everything is loaded, we can re-activate the player using its 'Restore' coroutine.
+
+//==================================================
+// 2.2 Save and load
+
+The save files are stored in xml format in 'Application.persistentDataPath' ( take a look here for more info: 
+http://docs.unity3d.com/ScriptReference/Application-persistentDataPath.html ).
+The following instances persists across scenes ('DontDestroyOnLoad' method called in Awake).
+
+// "scripts/Util/SaveLoadData.cs"
+
+This class manages the game save and load of the game progress. 
+The managed objects are all the objects related to the "pure" game stuff,
+these includes player, inventory, enemies and so on.
+With SaveLoadData script I tried to make a "generic" logic to save things, but you still need
+to implement new code in this script if you want to save new type of gameobjects.
+
+The "entry point" to save a data file is the method 'SaveGame', which we can call 
+from any point of our code. Actually, we can save the game when we press the quick save button.
+When we call this method, we need to get all the data to save. Any object that should be saved 
+must derive from 'PersistantMono' abstract class. This abstract class basically derives from
+'MonoBehaviour', and implement the IPersistant interface. So, a derived class must
+implement 2 methods: 'SaveInit' and 'Restore'. While the former is very important, the latter isn't 
+strictly necessary. That is, 'SaveInit' is called by the 'SaveLoadData' script to get the data type to save.
+
+All possible data types can be found in the 'IPersistant' interface script, under the DATA_TYPE enum.
+This value determines the structure of data to use when saving a specific gameObject. This is why this
+system isn't completely generic. If we want to add a new type of gameobject to the save file,
+we must first define a new id for it in the enum DATA_TYPE, then we must implement the specific 
+structure, in the SaveLoadData script, required by this gameobject. 
+
+For example, we could implement a data structure that can be used only to save a transform of a generic 
+gameObject, let's say a crate.
+There are actually 4 types I implemented: player, enemy, inventory and pickups. 
+So, we must choose the specific data type that the method 'SaveInit' in these script must return. 
+Also, we can use this method to do any pre-save operation. So, to summarize what happens here, 
+'SaveLoadData' search all objects that derive from 'PersistantMono' class, then it choose the data 
+structure to use depending on the value returned by the method 'SaveInit'. 
+While the method 'SaveInit' must be called for each object to save, the use of 'Restore' is
+pretty arbitrary instead. Actually, the restore of the game is 
+managed in the 'LevelInitializer' script, and this method is used only in the player script ATM.
+Take a look to the 'SaveLoadData' script, you will find more info in comments there.
+NOTE: in 'Menu' scene, this script is needed only to get the scene name when we load the game.
+
+// "scripts/Util/SaveLoadSettings.cs"
+
+This script manages the settings save and load ( audio volume, mouse sensitivity etc. ).
+The 'SaveLoadSettings' is a pretty ad hoc script for the settings you find in the main menu.
+This mean that if you add new settings, you should take a look to this script to add the 
+specific code to save these new settings. This works good with few settings, but if needed 
+I could consider to enhance it so it automatically gets all the settings to save.
+Take a look to the script for more info.
+
+//==================================================
+// 2.3 Player inventory
+
+// "scripts/Inventory/PlayerInventory.cs"
+
+Actually, player inventory holds weapons and ammo of the player.
+All weapons must be "loaded" in the inventory at scene start, then we can
+enable or disable a specific weapon during the game.
+This class manages also the ammo counter for each ammo type, so when we select 
+a weapon, we get its ammo available from here.
+
+Basically, it is an empty gameObject with the related script attached.
+We MUST set up weapons and ammo in its Inspector, pay attention here.
+There are 2 arrays, one for weapons and the other for ammo. We must to
+set the array size with all the weapons and ammo we defined in the game.
+You will find 2 enums for both these elements, respectively in 'Weapon'
+and 'Ammo' script.
+Let's start with weapons. For each element in the array, you have to define
+the weapon type ( pistol, machinegun or shotgun ) and if it is enabled or not.
+By enabled I mean that the player can use it from the start of the game.
+Otherwise, a weapon can be enabled later in the game if you pick it up from the ground.
+The important thing is that all weapons we want to use in this scene must be set
+in the Inspector.
+VERY IMPORTANT: the name of weapons in the enum must match the name of the 
+respective prefab weapon: weapons are instantiated during the game from the 
+'Resources/Weapon' folder, and we use the name of the enum to get the corresponding weapon here.
+Theoretically, there are no limits of max weapons, but you really need to pay attention 
+to the name in enum and prefab.
+
+The ammo uses a similar strategy, but in this case the name of the ammo in enum
+doesn't need to match the name of the prefab. The concept of ammo is more "virtual",
+For both of these entities, a "strong check" system may be needed. For example,
+you could set the same weapon twice at the moment. I will surely take into account 
+to enhance this system, but if you pay attention, nothing should break.
+Just take a look in this class and you will find more details in comments.
+
+The player inventory is not a singleton and does not persist across scenes, I made
+it this way so we can start each scene with a different weapon and ammo set up.
+Actually, each game scene has its own player inventory: when we start a scene
+as a new game/level restart, we don't consider the saved inventory but we load it from scratch.
+
+
+//==================================================
+// 2.4 Player behaviour
+
+The prefab of the player is 'FPController2.prefab', which includes these 2 scripts.
+
+// "scripts/Character/Player/Player.cs"
+
+The player is a singleton and the script manages all the input that are not movement input,
+this includes firing, reloading, change weapon etc.
+Also, it handles all triggered events, e.g. when picking up ammo from the ground.
+Last but not least, it initializes the UI.
+This script derives from 'DamageableEntity' class, which
+handle damage behaviour ( e.g. if hit by enemies ).
+
+// "scripts/Character/Player/FirstPersonController.cs"
+
+This script came from the Unity Standard Assets, with minor changes.
+It handles the movement input.
+
+Note: Input keys are hardcoded at the moment, I'll consider to make them customizable in next releases.
+
+//==================================================
+// 2.5 Game Controller
+
+// "scripts/Maps/GameController.cs"
+
+Actually it does not do much work. It is used to determine whether level is ended
+or not. This script should be used to handle any common behaviour in all levels.
+It must be used only when the game has been initialized by 'LevelInitializer' script.
+
+//==================================================
+// 2.6 Weapons
+
+// "scripts/Weapon/Weapon.cs"
+
+This is the core script for all weapons. All definitions of each weapon are stored here 
+( fire rate, clip size, reload time etc. ).
+It defines the methods for classic behaviour of a weapon: firing, reloading and so on.
+Also, it defines the method for ammo consumption - each weapon uses a specific ammo type.
+Camera recoil shake is done here - you will find a detailed description in the script.
+Weapons are controlled indirectly by the 'Player' script through the 'WeaponController' script.
+I will consider to make specific weapon script in next updates, to add new behaviours like melee weapons,
+but this is not needed yet.
+At the moment, you will get these weapons:
+- Pistol: a semi auto pistol with infinite ammo that fires energy projectiles;
+- Machinegun: a full auto weapon with a pretty high fire rate. It needs to be reloaded when its 30 rounds clip
+runs out of ammo;
+- Shotgun: this semi-auto weapon fires a buckshot of 8 projectiles at a time. It needs to be reloaded too.
+
+
+//==================================================
+// 2.7 Enemy AI
+
+// "scripts/Character/Enemy/Enemy.cs"
+
+I have to admit it...enemies here are dumb, but you know, it's better to fight
+against a dumb enemy rather than shoot to walls :)
+Here you will find the definitions for enemies ( attack rate, damage, etc. ).
+IMPORTANT: the enemy type must match the enemy prefab name, this is needed by 
+other scripts to spawn enemies at runtime, prefabs are in 'Resources/Enemy'.
+Enemies will basically try to reach you and perform a melee attack.
+I'm planning to improve enemy behaviours for long range attacks.
+
+
+//==================================================
+// 2.8  Audio Manager
+
+// "scripts/Audio/AudioManager.cs"
+
+This is another singleton, but it doesn't persist across scenes.
+Each scene uses its 'AudioManager' prefab, anyway this is actually needed to setup
+different music in its AudioSource.
+'SoundLibrary' component contains the sounds with a prefix,
+this means that you can set a prefix for a type of sound and specify more sound
+with this prefix to be played randomly, e.g. for various impact sounds.
+NOTE: the audio listener is attached to the player. Also, references of some sounds, like player
+footsteps and weapon fire, are stored in the related prefabs.
+
+//==================================================
+2.9 Prefab pooling system
+
+// "scripts/PrefabPoolSystem/PrefabPoolingSystem.cs"
+
+This script is the entry point to use pooling system for objects that needs to 
+spawn/despawn frequently during the game.
+If you don't know what object pooling is, you will find a lot of informations by just 
+googling it. Anyway, I give a brief description. Object pooling is a technique for memory 
+optimization, that allows you to reuse objects instead of instantiate and destroy them.
+In few words, you won't 'Instantiate' and 'Destroy', but you will enable and disable objects,
+which could be a lot faster when you have to deal with many objects, especially in mobile hardware.
+I added a 'PrefabPoolLoader' in my scenes to prespawn some objects that you will surely use later.
+This includes projectiles and shells. Prespawn an object means spawn it, and immediately disable it,
+so the object is already there, ready to use when needed, with a very fast access.
+Maybe in this scenes you won't actually see the differences from using the "standard" system ( instantiate and destroy ),
+but I find this system very nice to use with these many "short living" objects, even if not strictly needed
+at the moment.
+Enemies also rely on this class, even if they aren't loaded at scene startup with the pool loader.
+
+//=============================================================================================================================
+// 3. Scene setup
+
+If you want to make a new scene, these are the objects that you actually need to add. Almost all the needed objects are 
+available in the 'prefab' folder.
+Note that this is the setup for a "game" scene, while the 'Menu' scene is a bit different.
+
+- FPSController2
+The player. Singleton, but it does not persist across scenes. 
+It includes 'Player' and 'FirstPersonController' script components.
+
+- PlayerInventory
+Singleton, it doesn't persist across scenes.
+Set up in here all the weapons and ammo stuff. The prefab stores default values, 
+but you may want to set up this object in each scene independently.
+
+- GUI
+Singleton, does not persist across scenes. This object holds all the stuff related to user interface: 
+all the in-game menus and the hud.
+
+- SaveLoadData, SaveLoadSettings
+As explained above we need these 2 persistant objects in all scenes.
+
+- GameController
+Singleton, set up scene title,objective, and next scene index via Inspector . 
+
+- LevelInitializer
+Gameobject with 'LevelInitializer' script attached. There's nothing to set in it, it only must be there.
+Singleton, does not persist across scenes. 
+
+- AudioManager
+Actually, the only thing that should change from one scene to another is the soundtrack in the 'AudioSource'
+component attached to this object. 
+Quick note: this object was persistant at the beginning of the project, and I'll probably change the code to 
+make it to work that way again.
+
+- EnemySpawn
+Place it around the map, and choose in its inspector the enemy that should spawn.
+You can also override the dafault values of the enemy prefab, just flag 'overrideSpawnArgs' and define 
+the new enemy properties below.
+
+- PrefabPoolLoader
+You can set up the number of "shoot" objects to prespawn. Please note that this value should be neither too low ( useless ) or 
+too high ( waste ). Something between 20 and 50 should be fine.
+
+- EventSystem
+Remember to place this object in the scene in order to make in-game gui menu work.
+( [Menu bar] > 'GameObject' > 'UI' > 'Event System' ).
+
+Notes:
+
+- Some of the objects above may be grouped in parent gameobject just to tidy up the hierarchy, e.g. you may find 
+'Player' parent which holds 'FPSController2' and 'PlayerInventory', 
+'Game' parent which holds 'LevelInitializer' and 'GameController';
+Note that gameobjects that use 'DontDestroyOnLoad()' cannot have parent objects, e.g. 'SaveLoadData' gameobject;
+
+- scenes should be saved in 'Assets/_scenes';
+
+- Remember to add the scene in the 'Build Settings';
+
+- Remember that enemies need a NavMesh on the walkable surface! So remember to 'bake' in through the NavMesh tab with
+the specific floor selected;
+
+- Pay attention to the layers and tags I used. 
+
+As far as I know, complete projects on the Unity Asset Store keep project settings, anyway I made 2 screenshots of 
+'Physics' and 'Tags and Layers' settings if something goes wrong ( [menu bar] 'Edit' > 'Projects Settings' ), 
+so you could set them manually.
+Also, make sure to add all scenes ( '_scenes' folder ) in build settings ( [menu bar] 'File' > 'Build Settings...' ).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
