@@ -290,7 +290,7 @@
       <HintPath>C:/Program Files (x86)/Microsoft Visual Studio Tools for Unity/15.0/Editor/SyntaxTree.VisualStudio.Unity.Bridge.dll</HintPath>
     </Reference>
     <Reference Include="Malimbe.FodyRunner.UnityIntegration">
-      <HintPath>C:/Users/skymeson/Desktop/VRTK/VRTKTemplate/Assets/VRTK/Dependencies/Zinnia.Unity/Dependencies/Malimbe/Editor/Malimbe.FodyRunner.UnityIntegration.dll</HintPath>
+      <HintPath>C:/Users/skymeson/Documents/GitHub/VRTKTemplate/Assets/VRTK/Dependencies/Zinnia.Unity/Dependencies/Malimbe/Editor/Malimbe.FodyRunner.UnityIntegration.dll</HintPath>
     </Reference>
     <Reference Include="mscorlib">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.1.8f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/mscorlib.dll</HintPath>

@@ -246,43 +246,43 @@
     <Compile Include="Assets\Opsive\Behavior Designer\Editor\Object Drawers\IntSliderDrawer.cs" />
     <None Include="Assets\Opsive\Behavior Designer\Editor\GridShader.shader" />
     <Reference Include="Unity.Timeline.Editor">
-      <HintPath>C:/Users/skymeson/Desktop/VRTK/VRTKTemplate/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
+      <HintPath>C:/Users/skymeson/Documents/GitHub/VRTKTemplate/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Cinemachine">
-      <HintPath>C:/Users/skymeson/Desktop/VRTK/VRTKTemplate/Library/ScriptAssemblies/Cinemachine.dll</HintPath>
+      <HintPath>C:/Users/skymeson/Documents/GitHub/VRTKTemplate/Library/ScriptAssemblies/Cinemachine.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro.Editor">
-      <HintPath>C:/Users/skymeson/Desktop/VRTK/VRTKTemplate/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
+      <HintPath>C:/Users/skymeson/Documents/GitHub/VRTKTemplate/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.PackageManagerUI.Editor">
-      <HintPath>C:/Users/skymeson/Desktop/VRTK/VRTKTemplate/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
+      <HintPath>C:/Users/skymeson/Documents/GitHub/VRTKTemplate/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Timeline">
-      <HintPath>C:/Users/skymeson/Desktop/VRTK/VRTKTemplate/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
+      <HintPath>C:/Users/skymeson/Documents/GitHub/VRTKTemplate/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
     </Reference>
     <Reference Include="Unity.CollabProxy.Editor">
-      <HintPath>C:/Users/skymeson/Desktop/VRTK/VRTKTemplate/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
+      <HintPath>C:/Users/skymeson/Documents/GitHub/VRTKTemplate/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.XR.LegacyInputHelpers">
-      <HintPath>C:/Users/skymeson/Desktop/VRTK/VRTKTemplate/Library/ScriptAssemblies/UnityEngine.XR.LegacyInputHelpers.dll</HintPath>
+      <HintPath>C:/Users/skymeson/Documents/GitHub/VRTKTemplate/Library/ScriptAssemblies/UnityEngine.XR.LegacyInputHelpers.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.SpatialTracking">
-      <HintPath>C:/Users/skymeson/Desktop/VRTK/VRTKTemplate/Library/ScriptAssemblies/UnityEditor.SpatialTracking.dll</HintPath>
+      <HintPath>C:/Users/skymeson/Documents/GitHub/VRTKTemplate/Library/ScriptAssemblies/UnityEditor.SpatialTracking.dll</HintPath>
     </Reference>
     <Reference Include="com.unity.cinemachine.editor">
-      <HintPath>C:/Users/skymeson/Desktop/VRTK/VRTKTemplate/Library/ScriptAssemblies/com.unity.cinemachine.editor.dll</HintPath>
+      <HintPath>C:/Users/skymeson/Documents/GitHub/VRTKTemplate/Library/ScriptAssemblies/com.unity.cinemachine.editor.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.SpatialTracking">
-      <HintPath>C:/Users/skymeson/Desktop/VRTK/VRTKTemplate/Library/ScriptAssemblies/UnityEngine.SpatialTracking.dll</HintPath>
+      <HintPath>C:/Users/skymeson/Documents/GitHub/VRTKTemplate/Library/ScriptAssemblies/UnityEngine.SpatialTracking.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro">
-      <HintPath>C:/Users/skymeson/Desktop/VRTK/VRTKTemplate/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
+      <HintPath>C:/Users/skymeson/Documents/GitHub/VRTKTemplate/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.DataPrivacy">
-      <HintPath>C:/Users/skymeson/Desktop/VRTK/VRTKTemplate/Library/ScriptAssemblies/Unity.Analytics.DataPrivacy.dll</HintPath>
+      <HintPath>C:/Users/skymeson/Documents/GitHub/VRTKTemplate/Library/ScriptAssemblies/Unity.Analytics.DataPrivacy.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.XR.LegacyInputHelpers">
-      <HintPath>C:/Users/skymeson/Desktop/VRTK/VRTKTemplate/Library/ScriptAssemblies/UnityEditor.XR.LegacyInputHelpers.dll</HintPath>
+      <HintPath>C:/Users/skymeson/Documents/GitHub/VRTKTemplate/Library/ScriptAssemblies/UnityEditor.XR.LegacyInputHelpers.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AIModule">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.1.8f1/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
@@ -498,40 +498,40 @@
       <HintPath>C:/Program Files (x86)/Microsoft Visual Studio Tools for Unity/15.0/Editor/SyntaxTree.VisualStudio.Unity.Bridge.dll</HintPath>
     </Reference>
     <Reference Include="BehaviorDesigner.Editor">
-      <HintPath>C:/Users/skymeson/Desktop/VRTK/VRTKTemplate/Assets/Opsive/Behavior Designer/Editor/BehaviorDesigner.Editor.dll</HintPath>
+      <HintPath>C:/Users/skymeson/Documents/GitHub/VRTKTemplate/Assets/Opsive/Behavior Designer/Editor/BehaviorDesigner.Editor.dll</HintPath>
     </Reference>
     <Reference Include="BehaviorDesigner.Runtime">
-      <HintPath>C:/Users/skymeson/Desktop/VRTK/VRTKTemplate/Assets/Opsive/Behavior Designer/Runtime/BehaviorDesigner.Runtime.dll</HintPath>
+      <HintPath>C:/Users/skymeson/Documents/GitHub/VRTKTemplate/Assets/Opsive/Behavior Designer/Runtime/BehaviorDesigner.Runtime.dll</HintPath>
     </Reference>
     <Reference Include="Malimbe.BehaviourStateRequirementMethod">
-      <HintPath>C:/Users/skymeson/Desktop/VRTK/VRTKTemplate/Assets/VRTK/Dependencies/Zinnia.Unity/Dependencies/Malimbe/Runtime/Malimbe.BehaviourStateRequirementMethod.dll</HintPath>
+      <HintPath>C:/Users/skymeson/Documents/GitHub/VRTKTemplate/Assets/VRTK/Dependencies/Zinnia.Unity/Dependencies/Malimbe/Runtime/Malimbe.BehaviourStateRequirementMethod.dll</HintPath>
     </Reference>
     <Reference Include="Malimbe.MemberChangeMethod">
-      <HintPath>C:/Users/skymeson/Desktop/VRTK/VRTKTemplate/Assets/VRTK/Dependencies/Zinnia.Unity/Dependencies/Malimbe/Runtime/Malimbe.MemberChangeMethod.dll</HintPath>
+      <HintPath>C:/Users/skymeson/Documents/GitHub/VRTKTemplate/Assets/VRTK/Dependencies/Zinnia.Unity/Dependencies/Malimbe/Runtime/Malimbe.MemberChangeMethod.dll</HintPath>
     </Reference>
     <Reference Include="Malimbe.MemberClearanceMethod">
-      <HintPath>C:/Users/skymeson/Desktop/VRTK/VRTKTemplate/Assets/VRTK/Dependencies/Zinnia.Unity/Dependencies/Malimbe/Runtime/Malimbe.MemberClearanceMethod.dll</HintPath>
+      <HintPath>C:/Users/skymeson/Documents/GitHub/VRTKTemplate/Assets/VRTK/Dependencies/Zinnia.Unity/Dependencies/Malimbe/Runtime/Malimbe.MemberClearanceMethod.dll</HintPath>
     </Reference>
     <Reference Include="Malimbe.PropertySerializationAttribute">
-      <HintPath>C:/Users/skymeson/Desktop/VRTK/VRTKTemplate/Assets/VRTK/Dependencies/Zinnia.Unity/Dependencies/Malimbe/Runtime/Malimbe.PropertySerializationAttribute.dll</HintPath>
+      <HintPath>C:/Users/skymeson/Documents/GitHub/VRTKTemplate/Assets/VRTK/Dependencies/Zinnia.Unity/Dependencies/Malimbe/Runtime/Malimbe.PropertySerializationAttribute.dll</HintPath>
     </Reference>
     <Reference Include="Malimbe.XmlDocumentationAttribute">
-      <HintPath>C:/Users/skymeson/Desktop/VRTK/VRTKTemplate/Assets/VRTK/Dependencies/Zinnia.Unity/Dependencies/Malimbe/Runtime/Malimbe.XmlDocumentationAttribute.dll</HintPath>
+      <HintPath>C:/Users/skymeson/Documents/GitHub/VRTKTemplate/Assets/VRTK/Dependencies/Zinnia.Unity/Dependencies/Malimbe/Runtime/Malimbe.XmlDocumentationAttribute.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.Advertisements">
-      <HintPath>C:/Users/skymeson/Desktop/VRTK/VRTKTemplate/Library/PackageCache/com.unity.ads@2.0.8/Editor/UnityEditor.Advertisements.dll</HintPath>
+      <HintPath>C:/Users/skymeson/Documents/GitHub/VRTKTemplate/Library/PackageCache/com.unity.ads@2.0.8/Editor/UnityEditor.Advertisements.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.Editor">
-      <HintPath>C:/Users/skymeson/Desktop/VRTK/VRTKTemplate/Library/PackageCache/com.unity.analytics@3.3.2/Unity.Analytics.Editor.dll</HintPath>
+      <HintPath>C:/Users/skymeson/Documents/GitHub/VRTKTemplate/Library/PackageCache/com.unity.analytics@3.3.2/Unity.Analytics.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.StandardEvents">
-      <HintPath>C:/Users/skymeson/Desktop/VRTK/VRTKTemplate/Library/PackageCache/com.unity.analytics@3.3.2/Unity.Analytics.StandardEvents.dll</HintPath>
+      <HintPath>C:/Users/skymeson/Documents/GitHub/VRTKTemplate/Library/PackageCache/com.unity.analytics@3.3.2/Unity.Analytics.StandardEvents.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.Tracker">
-      <HintPath>C:/Users/skymeson/Desktop/VRTK/VRTKTemplate/Library/PackageCache/com.unity.analytics@3.3.2/Unity.Analytics.Tracker.dll</HintPath>
+      <HintPath>C:/Users/skymeson/Documents/GitHub/VRTKTemplate/Library/PackageCache/com.unity.analytics@3.3.2/Unity.Analytics.Tracker.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.Purchasing">
-      <HintPath>C:/Users/skymeson/Desktop/VRTK/VRTKTemplate/Library/PackageCache/com.unity.purchasing@2.0.6/Editor/UnityEditor.Purchasing.dll</HintPath>
+      <HintPath>C:/Users/skymeson/Documents/GitHub/VRTKTemplate/Library/PackageCache/com.unity.purchasing@2.0.6/Editor/UnityEditor.Purchasing.dll</HintPath>
     </Reference>
     <Reference Include="mscorlib">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.1.8f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/mscorlib.dll</HintPath>
