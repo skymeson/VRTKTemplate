@@ -1349,6 +1349,7 @@
     <None Include="Assets\VRTK\Dependencies\Zinnia.Unity\Dependencies\FodyWeavers.xml" />
     <None Include="Assets\Examples\Doomtrinity\__docs\update_1.2.0\technical_1.2.0.txt" />
     <None Include="Assets\Examples\Doomtrinity\__docs\update_1.1.0\readme_1.1.0.txt" />
+    <None Include="Assets\Examples\PolygonCity\Change_Log.txt" />
     <None Include="Assets\Devdog\InventoryPro\Scripts\Diagrams\InventorySystem.cd" />
     <None Include="Assets\Opsive\Behavior Designer\Behavior Designer Samples\MasterAudio\3DText.shader" />
     <None Include="Assets\Examples\Dark City\info.txt" />
